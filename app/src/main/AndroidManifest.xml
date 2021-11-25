@@ -11,14 +11,17 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.listaprofessor.PerfilAluno">
+        <activity
+            android:name="com.example.listaprofessor.PerfilAluno"
+            android:parentActivityName="com.example.listaprofessor.MainActivity">
         </activity>
     </application>
 
