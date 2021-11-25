@@ -19,7 +19,7 @@
     <ImageView
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:background="@drawable/layout_shadow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,15 +49,6 @@
         app:srcCompat="@android:color/white" />
 
     <ImageView
-        android:id="@+id/lupa"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/fundoFotoProf"
-        app:layout_constraintTop_toBottomOf="@+id/fundoFotoProf"
-        app:srcCompat="@drawable/vec_busca" />
-
-    <ImageView
         android:id="@+id/fotoProf"
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -75,20 +66,73 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        tools:listitem="@layout/item_aluno"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
-    <EditText
+    </ListView>
+
+    <SearchView
         android:id="@+id/fieldBuscar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
+        android:layout_marginBottom="8dp"
+        android:iconifiedByDefault="false"
         android:inputType="textPersonName"
-        android:text="Buscar..."
-        app:layout_constraintEnd_toStartOf="@+id/lupa"
-        app:layout_constraintStart_toStartOf="@+id/frameLayout"
+        android:queryHint="Buscar..."
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="@+id/fundoFotoProf"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fundoFotoProf" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/alunosNaoEncontados"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="180dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25"
+            app:srcCompat="@drawable/vec_nao_encontrado" />
+
+        <TextView
+            android:id="@+id/erroDesculpa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Desculpe"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/erroExplicacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Nao foi encontrado nenhum aluno"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/erroDesculpa"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
