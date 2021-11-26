@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.listaprofessor.R;
@@ -43,6 +44,13 @@ public class ListaAlunosAdapter extends BaseAdapter {
 
         ((TextView) viewCriada.findViewById(R.id.nomeAluno)).setText(aluno.getNome());
         ((TextView) viewCriada.findViewById(R.id.nomeProjeto)).setText(aluno.getProjeto());
+        if (aluno.jaFaltou() && !aluno.getJustificativas())
+            ((ImageView) viewCriada.findViewById(R.id.itemAluno_simbolo)).setImageResource(R.drawable.vec_nao_completo);
+        else if (aluno.jaFaltou())
+            ((ImageView) viewCriada.findViewById(R.id.itemAluno_simbolo)).setImageResource(R.drawable.vec_atencao);
+        else
+            ((ImageView) viewCriada.findViewById(R.id.itemAluno_simbolo)).setImageResource(R.drawable.vec_done);
+
 
         return viewCriada;
     }

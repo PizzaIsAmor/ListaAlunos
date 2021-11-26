@@ -10,4 +10,7 @@
     <color name="light_blue_secondary">#B30099CC</color>
     <color name="selec_primary">#ff0099CC</color>
     <color name="selec_secondary">#B38C8F8F</color>
+    <color name="cor_atencao">#B3E0E01F</color>
+    <color name="cor_nao_completo">#B3D01616</color>
+    <color name="cor_done">#B321FD01</color>
 </resources>

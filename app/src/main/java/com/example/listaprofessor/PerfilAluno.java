@@ -7,15 +7,23 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.listaprofessor.DAO.AlunosDAO;
+import com.example.listaprofessor.controller.ListaAlunosAdapter;
+import com.example.listaprofessor.controller.ListaCardAdapter;
 import com.example.listaprofessor.model.Aluno;
+import com.example.listaprofessor.model.Justificativa;
+import com.example.listaprofessor.model.Presencas;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class PerfilAluno extends AppCompatActivity {
     private boolean ehJustificativa = false;
     Aluno aluno = null;
+    private ListView listaCards = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +32,7 @@ public class PerfilAluno extends AppCompatActivity {
 
         Intent intent = getIntent();
         aluno = MainActivity.alunoEscolhido;
+        listaCards = findViewById(R.id.listaPresencas);
 
         //Adiciona Nome
         setConfig();
@@ -79,7 +88,24 @@ public class PerfilAluno extends AppCompatActivity {
     }
 
     private void setConteudoLista() {
+        if (!this.ehJustificativa) {
+            // Constroi lista de Presenca
+            listaCards.setAdapter(new ListaCardAdapter(aluno.getPresencas(), this));
+        } else {
+            // Constroi lista de justificativas
+            List<Justificativa> justificativas = new LinkedList<>();
+            List<Presencas> aux = aluno.getPresencas();
+            List<Presencas> presencasComJust = new LinkedList<>();
 
+            for (int i = 0; i < aux.size(); i++) {
+                if (aux.get(i).getJust() != null) {
+                    justificativas.add(aux.get(i).getJust());
+                    presencasComJust.add(aux.get(i));
+                }
+            }
+
+            listaCards.setAdapter(new ListaCardAdapter(justificativas, this, presencasComJust));
+        }
     }
 
     private void setConfig() {
@@ -92,7 +118,7 @@ public class PerfilAluno extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    private boolean ehListaVazia(List<Object> lista) {
+    private boolean ehListaVazia(List lista) {
         if (lista == null || lista.isEmpty())
             return true;
 
@@ -100,7 +126,7 @@ public class PerfilAluno extends AppCompatActivity {
     }
 
     private void ehShowMensagemNaoEncontrado() {
-        if (this.ehJustificativa && ehListaVazia(this.aluno.getJustificativas())) {
+        if (this.ehJustificativa && !this.aluno.getJustificativas()) {
             ((TextView) findViewById(R.id.perfilAluno_erroExplicacao)).setText("O aluno ainda nao possui justificativas");
             findViewById(R.id.perfrilAluno_naoEncontrado).setVisibility(View.VISIBLE);
         } else if (!this.ehJustificativa && ehListaVazia(this.aluno.getPresencas())) {

@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.example.listaprofessor.DAO.AlunosDAO;
 import com.example.listaprofessor.controller.ListaAlunosAdapter;
 import com.example.listaprofessor.model.Aluno;
 
@@ -28,10 +29,7 @@ public class MainActivity extends AppCompatActivity {
         // Constroi lista de alunos
         umaListaAlunos = findViewById(R.id.listaDeAlunos);
 
-        for (int i = 0; i < 10; i++) {
-
-            alunos.add(new Aluno("Fulano " + i, "Projeto IHC " + i * 42));
-        }
+        alunos = AlunosDAO.createAlunos();
 
         ehListaVazia(alunos);
         umaListaAlunos.setAdapter(new ListaAlunosAdapter(alunos, this));
