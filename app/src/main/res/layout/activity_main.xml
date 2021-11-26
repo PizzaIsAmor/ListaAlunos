@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="4dp"
-        android:text="Nome do professor"
+        android:text="Pedro Manuel da Silveira Neto"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/fundoFotoProf"
         app:layout_constraintEnd_toStartOf="@+id/fundoFotoProf" />
@@ -66,8 +66,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        android:divider="@null"
+        android:dividerHeight="0dp">
     </ListView>
 
     <SearchView

@@ -52,6 +52,10 @@ public class Aluno {
         return this.faltou;
     }
 
+    public void tiraFalta() {
+        this.faltou = false;
+    }
+
     public void aceitaJust() {
         this.aceito = true;
     }

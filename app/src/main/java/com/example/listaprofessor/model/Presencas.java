@@ -48,6 +48,10 @@ public class Presencas {
         return ehMarcado;
     }
 
+    public void desmarca(){
+        this.ehMarcado = false;
+    }
+
     public void marca(int dia, String mes, int ano, int hora, int minutos) {
         this.ehMarcado = true;
         this.dia = dia;

@@ -30,7 +30,7 @@ public class AlunosDAO {
             presencas.add( new Presencas(true, i, "Novembro",
                     2021, 8, 0, null) );
         }
-
+        presencas.get(0).desmarca();
         alunos.add( new Aluno("Italo de Almeida","Projeto de Grafos", false,
                 (List<Presencas>) ((LinkedList) presencas).clone(), true) );
 
@@ -40,6 +40,7 @@ public class AlunosDAO {
             presencas.add( new Presencas(true, i, "Novembro",
                     2021, 8, 0, null) );
         }
+        presencas.get(0).desmarca();
         presencas.get(0).justifica( new Justificativa("Nao pude ir no dia porque teve um temporal e nao deu pra ir",
                 false));
         alunos.add( new Aluno("Rafael Silva","Projeto de Realidade virtual", true,

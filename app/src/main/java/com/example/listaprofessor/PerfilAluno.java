@@ -7,10 +7,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.listaprofessor.DAO.AlunosDAO;
+import com.example.listaprofessor.controller.JustificativaDialog;
 import com.example.listaprofessor.controller.ListaAlunosAdapter;
 import com.example.listaprofessor.controller.ListaCardAdapter;
 import com.example.listaprofessor.model.Aluno;
@@ -22,11 +24,23 @@ import java.util.List;
 
 public class PerfilAluno extends AppCompatActivity {
     private boolean ehJustificativa = false;
-    Aluno aluno = null;
+    private static Aluno aluno = null;
     private ListView listaCards = null;
+    private List<Justificativa> justificativas;
+    private List<Presencas> presencasComJust;
+    private static Justificativa ultiJust = null;
+    private static PerfilAluno tela = null;
+
+    public static void aceitaJustificativa() {
+        ultiJust.aceita();
+        aluno.tiraFalta();
+        tela.setConteudoLista();
+        tela.ehShowMensagemNaoEncontrado();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        tela = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_aluno);
 
@@ -93,9 +107,9 @@ public class PerfilAluno extends AppCompatActivity {
             listaCards.setAdapter(new ListaCardAdapter(aluno.getPresencas(), this));
         } else {
             // Constroi lista de justificativas
-            List<Justificativa> justificativas = new LinkedList<>();
+            justificativas = new LinkedList<>();
             List<Presencas> aux = aluno.getPresencas();
-            List<Presencas> presencasComJust = new LinkedList<>();
+            presencasComJust = new LinkedList<>();
 
             for (int i = 0; i < aux.size(); i++) {
                 if (aux.get(i).getJust() != null) {
@@ -105,6 +119,12 @@ public class PerfilAluno extends AppCompatActivity {
             }
 
             listaCards.setAdapter(new ListaCardAdapter(justificativas, this, presencasComJust));
+            listaCards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    abreModal(position, view);
+                }
+            });
         }
     }
 
@@ -134,5 +154,13 @@ public class PerfilAluno extends AppCompatActivity {
             findViewById(R.id.perfrilAluno_naoEncontrado).setVisibility(View.VISIBLE);
         } else
             findViewById(R.id.perfrilAluno_naoEncontrado).setVisibility(View.INVISIBLE);
+    }
+
+    protected void abreModal(int posicao, View view) {
+        ultiJust = justificativas.get(posicao);
+        Presencas pres = presencasComJust.get(posicao);
+        JustificativaDialog modal = new JustificativaDialog(justificativas.get(posicao),
+                "" + pres.getDia() + " de " + pres.getMes() + " de " + pres.getAno());
+        modal.show(getSupportFragmentManager(), "exemplo");
     }
 }
